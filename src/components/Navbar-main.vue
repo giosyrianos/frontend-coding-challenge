@@ -7,24 +7,17 @@
 			>
 				Projects
 			</router-link>
-			<!-- <div class="navbar-nav mr-auto">
+			<div class="navbar-nav mr-auto">
 				<li class="nav-item">
 					<router-link
-						to="/tutorials"
+						to="/"
 						class="nav-link"
+						:class="router-link-active"
 					>
-						Tutorials
+						List
 					</router-link>
 				</li>
-				<li class="nav-item">
-					<router-link
-						to="/add"
-						class="nav-link"
-					>
-						Add
-					</router-link>
-				</li>
-			</div> -->
+			</div>
 		</nav>
 	</div>
 </template>

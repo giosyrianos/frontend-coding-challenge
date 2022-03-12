@@ -12,7 +12,8 @@
     "jquery": "^3.6.0",
     "popper.js": "^1.16.1",
     "vue": "^3.2.25",
-    "vue-router": "^4.0.12"
+    "vue-router": "^4.0.12",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.2.0",
