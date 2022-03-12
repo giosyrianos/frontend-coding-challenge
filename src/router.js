@@ -4,7 +4,7 @@ const routes = [{
 	path: '/',
 	alias: '/projects',
 	name: 'projects',
-	component: () => import('./views/Projects-list.vue')
+	component: () => import('./views/Projects-home.vue')
 }]
 
 const router = createRouter({

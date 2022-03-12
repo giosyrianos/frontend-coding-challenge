@@ -2,9 +2,10 @@
 	<div>
 		<ul class="list-group">
 			<li
-				v-for="project in loadedProjects"
+				v-for="project in projects"
 				:key="project.id"
 				class="list-group-item"
+				@click="onProjectSelected(project.id)"
 			>
 				{{ project.name }}
 			</li>
@@ -15,17 +16,16 @@
 <script>
 export default {
 	name: 'ProjectsList',
-	computed: {
-		loadedProjects () {
-			return this.$store.getters.loadProjects
+	props: {
+		projects: {
+			type: Array,
+			required: true
 		}
 	},
-	mounted () {
-		this.getProjects()
-	},
+	emits: ['selected'],
 	methods: {
-		getProjects () {
-			this.$store.dispatch('fetchProjectList')
+		onProjectSelected (projectId) {
+			this.$emit('selected', projectId)
 		}
 	}
 }

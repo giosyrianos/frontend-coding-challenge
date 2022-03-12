@@ -13,17 +13,20 @@ const store = createStore({
 
 	actions: {
 		fetchProjectList ({ commit }) {
-			ProjectsDataService.getAllProjects().then((listData) => {
-				commit('SET_PROJECTS_LIST', listData.data)
-			})
+			ProjectsDataService.getAllProjects()
+				.then((listData) => {
+					commit('SET_PROJECTS_LIST', listData.data)
+				})
+				.catch(error => console.log(error))
 		}
 	},
+
 	mutations: {
 		SET_PROJECTS_LIST (state, payload) {
-			console.log(payload)
 			state.projectsList = payload
 		}
 	},
+
 	getters: {
 		loadProjects: (state) => state.projectsList
 	}
