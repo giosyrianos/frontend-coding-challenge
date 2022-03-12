@@ -1,28 +1,39 @@
 <template>
-	<div class="projects-container">
+	<div
+		v-if="loadedProjects.length"
+		class="projects-container shadow-lg"
+	>
 		<ProjectsList
 			:projects="loadedProjects"
 			@selected="loadProjectDetails($event)"
 		/>
 
-		<div class="details-container center-all">
-			<SpinningLoader />
+		<div class="details-container">
+			<SingleProject
+				:project="loadedSelectedProject"
+				@loaded="loadProjectDetails()"
+			/>
 		</div>
 	</div>
 </template>
 
 <script>
 import ProjectsList from '../components/Projects-list.vue'
+import SingleProject from '../components/Single-project.vue'
 
 export default {
 	name: 'ProjectsHome',
 	components: {
 		ProjectsList,
+		SingleProject
 	},
 	computed: {
 		loadedProjects () {
 			return this.$store.getters.loadProjects
 		},
+		loadedSelectedProject () {
+			return this.$store.getters.loadSelectedProject
+		}
 	},
 	mounted () {
 		this.getProjects()
@@ -32,21 +43,17 @@ export default {
 			this.$store.dispatch('fetchProjectList')
 		},
 		loadProjectDetails (id) {
-			console.log(id)
+			const projectId = id || this.loadedProjects[0].id
+			this.$store.dispatch('fetchSingleProject', projectId)
 		},
 	},
 }
 </script>
 
-<style>
+<style scoped>
 .projects-container {
-	border: 1px solid rgb(65, 64, 64);
 	display: grid;
 	grid-template-columns: minmax(250px, 25%) 1fr;
 }
 
-.center-all {
-	display: grid;
-	place-items: center;
-}
 </style>
