@@ -1,6 +1,6 @@
 <template>
 	<NavbarMain />
-	<div class="container m-3">
+	<div class="m-3 center-all">
 		<router-view />
 	</div>
 </template>
@@ -11,4 +11,9 @@ export default {
 	components: { NavbarMain },
 }
 </script>
-<style></style>
+<style>
+.center-all{
+	display: grid;
+	place-items: center;
+}
+</style>

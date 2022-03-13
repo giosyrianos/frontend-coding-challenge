@@ -54,6 +54,7 @@ export default {
 .projects-container {
 	display: grid;
 	grid-template-columns: minmax(250px, 25%) 1fr;
+	width: 80%
 }
 
 </style>
