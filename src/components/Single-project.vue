@@ -25,7 +25,7 @@
 			</ul>
 			<div class="text-right">
 				<button
-					href="#"
+					@click="onProjectSplit()"
 					class="btn btn-info mt-5 ml-auto shadow"
 				>
 					Split Project
@@ -57,6 +57,9 @@ export default {
 	methods: {
 		hasValue (value) {
 			return value.length > 0
+		},
+		onProjectSplit () {
+			this.$router.push({ name: 'project-split', params: { projectId: this.project.id } })
 		}
 	}
 }
