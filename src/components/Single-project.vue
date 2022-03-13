@@ -25,8 +25,8 @@
 			</ul>
 			<div class="text-right">
 				<button
-					@click="onProjectSplit()"
 					class="btn btn-info mt-5 ml-auto shadow"
+					@click="onProjectSplit()"
 				>
 					Split Project
 				</button>
