@@ -2,7 +2,7 @@ import { createStore } from 'vuex'
 import ProjectsDataService from '../services/ProjectsDataService'
 // import { router } from '../router'
 
-// import splitProjectsModule from './modules/splitProjects'
+import splitProjectsModule from './modules/split-project'
 
 const store = createStore({
 	state () {
@@ -47,13 +47,15 @@ const store = createStore({
 	getters: {
 
 		loadProjects: (state) => state.projectsList,
-		loadSelectedProject: (state) => state.selectedProject
+		loadSelectedProject: (state) => state.selectedProject,
+		selectedProjectStories: (state) => state.selectedProject.stories,
+		selectedProjectStatements: (state) => state.selectedProject.statements,
+		selectedProjectNodes: (state) => state.selectedProject.nodes
+	},
 
+	modules: {
+		splitProjects: splitProjectsModule
 	}
-
-	// modules: {
-	// 	splitProjects: splitProjectsModule
-	// }
 })
 
 export default store
