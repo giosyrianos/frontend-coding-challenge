@@ -20,7 +20,7 @@
 	>
 		<div class="card-header">
 			<h3>{{ currentProject.name }}</h3>
-			<p>{{ currentProject.id }}</p>
+			<p>{{ selectedStories }}</p>
 		</div>
 		<div class="card-body">
 			<nav>
@@ -88,7 +88,11 @@
 					role="tabpanel"
 					aria-labelledby="nav-stories-tab"
 				>
-					Stories
+					<SelectionList
+						:project-property="stories"
+						:has-selection="true"
+						@list-updated="updateStoryList($event)"
+					/>
 				</div>
 				<div
 					id="nav-statements"
@@ -96,7 +100,9 @@
 					role="tabpanel"
 					aria-labelledby="nav-statements-tab"
 				>
-					Statements
+					<SelectionList
+						:project-property="statements"
+					/>
 				</div>
 				<div
 					id="nav-nodes"
@@ -104,7 +110,9 @@
 					role="tabpanel"
 					aria-labelledby="nav-nodes-tab"
 				>
-					NOdes
+					<SelectionList
+						:project-property="nodes"
+					/>
 				</div>
 			</div>
 		</div>
@@ -112,8 +120,19 @@
 </template>
 
 <script>
+import SelectionList from '../components/Selection-list.vue'
+
 export default {
 	name: 'ProjectSplit',
+	components: {
+		SelectionList
+	},
+	data: () => {
+		return {
+			selectedStories: [],
+			newProjects: []
+		}
+	},
 	computed: {
 		currentProject () {
 			return this.$store.getters.loadSelectedProject
@@ -139,6 +158,9 @@ export default {
 			const projectId = this.currentProject.id || this.$route.params.projectId
 			this.$store.dispatch('fetchSingleProject', projectId)
 		},
+		updateStoryList (stories) {
+			this.selectedStories = stories
+		}
 	},
 }
 </script>
