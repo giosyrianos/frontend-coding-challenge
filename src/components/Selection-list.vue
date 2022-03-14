@@ -54,10 +54,8 @@ export default {
 			if (included) {
 				const itemIndex = this.selectedItems.indexOf(id)
 				this.selectedItems.splice(itemIndex, 1)
-				console.log('removed', this.selectedItems)
 			} else {
 				this.selectedItems.push(id)
-				console.log('added', this.selectedItems)
 			}
 			this.$emit('list-updated', this.selectedItems)
 		},
