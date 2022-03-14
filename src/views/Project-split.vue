@@ -136,7 +136,7 @@
 		class="new-projects-container d-flex p-4 shadow-lg w-100"
 	>
 		<div class="btn-container">
-			<button class="btn btn-success my-auto">
+			<button @click="submitNewProjects()" class="btn btn-success my-auto">
 				Split Project
 			</button>
 		</div>
@@ -236,6 +236,9 @@ export default {
 		// loadProjectDependencies () {
 		// 	this.$store.dispatch('splitProjects/fetchProjectDependencies')
 		// }
+		submitNewProjects () {
+			this.$store.dispatch('splitProjects/createNewProjects', this.newProjects)
+		},
 		loadProject () {
 			const projectId = this.currentProject.id || this.$route.params.projectId
 			this.$store.dispatch('fetchSingleProject', projectId)

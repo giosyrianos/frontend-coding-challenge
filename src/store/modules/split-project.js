@@ -1,4 +1,4 @@
-// import ProjectsDataService from '../../services/ProjectsDataService'
+import ProjectsDataService from '../../services/ProjectsDataService'
 import router from '../../router'
 
 export default {
@@ -7,15 +7,19 @@ export default {
 		return {
 			stories: [],
 			statements: [],
-			nodes: []
+			nodes: [],
+			newProjects: []
 		}
 	},
 
 	actions: {
-		fetchProjectDependencies () {
+		createNewProjects ({ commit }, newProjects) {
 			const projectId = router.currentRoute.value.params.projectId
-			console.log(projectId)
-			// ProjectsDataService.getEntireProject()
+			ProjectsDataService.creatNewProjects(projectId, newProjects)
+				.then((res) => {
+					console.log(res)
+				})
+				.catch(error => console.log(error))
 		}
 	}
 }
