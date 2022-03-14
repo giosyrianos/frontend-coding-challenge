@@ -14,6 +14,12 @@ const routes = [
 		component: () => import('./views/Project-split.vue')
 	},
 	{
+		path: '/suggest/:projectId',
+		alias: '/suggest-split',
+		name: 'suggest-split',
+		component: () => import('./views/Decide-split.vue')
+	},
+	{
 		path: '/:catchAll(.*)',
 		redirect: '/'
 	}

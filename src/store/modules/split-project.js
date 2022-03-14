@@ -8,7 +8,8 @@ export default {
 			stories: [],
 			statements: [],
 			nodes: [],
-			newProjects: []
+			newProjects: [],
+			selectedProject: {}
 		}
 	},
 
@@ -20,6 +21,26 @@ export default {
 					console.log(res)
 				})
 				.catch(error => console.log(error))
+		},
+		fetchProjectDependencies ({ commit }) {
+			const projectId = router.currentRoute.value.params.projectId
+			ProjectsDataService.getAllDependencies(projectId)
+				.then((dependencies) => {
+					console.log(dependencies.data)
+					commit('SET_SELECTED_PROJECT', dependencies.data)
+				})
 		}
+	},
+
+	mutations: {
+		SET_SELECTED_PROJECT (state, payload) {
+			state.selectedProject = payload
+		}
+	},
+
+	getters: {
+		loadStories: state => state.selectedProject.stories,
+		loadAlways: state => state.selectedProject.always,
+		loadUnused: state => state.selectedProject.unused
 	}
 }

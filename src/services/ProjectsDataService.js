@@ -12,6 +12,10 @@ class ProjectsDataService {
 	creatNewProjects (id, projects) {
 		return http.post(`/projects/${id}/split`, projects)
 	}
+
+	getAllDependencies (id) {
+		return http.get(`projects/${id}/dependencies`)
+	}
 }
 
 export default new ProjectsDataService()

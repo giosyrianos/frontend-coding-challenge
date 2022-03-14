@@ -23,12 +23,18 @@
 					>{{ value.length }}</span>
 				</li>
 			</ul>
-			<div class="text-right">
+			<div class="text-right d-flex flex-column">
 				<button
-					class="btn btn-info mt-5 ml-auto shadow"
+					class="btn btn-info mt-5 ml-auto shadow-sm"
 					@click="onProjectSplit()"
 				>
 					Split Project
+				</button>
+				<button
+					class="btn btn-outline-info mt-2 ml-auto shadow-sm"
+					@click="onSuggestSplit()"
+				>
+					Decide Split
 				</button>
 			</div>
 		</div>
@@ -60,6 +66,9 @@ export default {
 		},
 		onProjectSplit () {
 			this.$router.push({ name: 'project-split', params: { projectId: this.project.id } })
+		},
+		onSuggestSplit () {
+			this.$router.push({ name: 'suggest-split', params: { projectId: this.project.id } })
 		}
 	}
 }
