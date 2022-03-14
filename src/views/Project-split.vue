@@ -19,8 +19,16 @@
 		class="card w-100"
 	>
 		<div class="card-header">
-			<h3>{{ currentProject.name }}</h3>
-			<p>{{ selectedStories }}</p>
+			<div class="d-flex justify-content-between">
+				<h3>{{ currentProject.name }}</h3>
+				<button
+					v-show="selectedStories.length > 0"
+					class="btn btn-sm btn-primary"
+					@click="showModal()"
+				>
+					New Project
+				</button>
+			</div>
 		</div>
 		<div class="card-body">
 			<nav>
@@ -89,6 +97,7 @@
 					aria-labelledby="nav-stories-tab"
 				>
 					<SelectionList
+						ref="storiesList"
 						:project-property="stories"
 						:has-selection="true"
 						@list-updated="updateStoryList($event)"
@@ -110,13 +119,60 @@
 					role="tabpanel"
 					aria-labelledby="nav-nodes-tab"
 				>
-					<SelectionList
-						:project-property="nodes"
-					/>
+					<SelectionList :project-property="nodes" />
 				</div>
 			</div>
 		</div>
 	</div>
+	<div class="new-projects-container">
+		{{ newProjects }}
+	</div>
+	<ModalDialogue
+		v-show="isModalVisible"
+		@close="closeModal"
+	>
+		<template #header>
+			<h3>{{ modalHeader }}</h3>
+		</template>
+		<template #body>
+			<div>
+				<form>
+					<div class="form-group">
+						<label for="exampleInputEmail1">Project name</label>
+						<input
+							v-model="projectName"
+							class="form-control"
+							placeholder="Enter project name"
+						>
+						<small
+							id="emailHelp"
+							class="form-text text-muted"
+						>Project name must be unique</small>
+					</div>
+				</form>
+				<div>
+					<h4>Stories</h4>
+					<span
+						v-for="story in selectedStories"
+						:key="story"
+						class="badge badge-primary badge-pill mx-1"
+					>{{ story }}</span>
+				</div>
+			</div>
+		</template>
+		<template #footer>
+			<button
+				v-show="projectName.length > 1"
+				type="button"
+				class="btn btn-success"
+				aria-label="Close modal"
+				:class="{'disabled': projectName.length < 1 }"
+				@click="saveNewProject()"
+			>
+				Save Project
+			</button>
+		</template>
+	</ModalDialogue>
 </template>
 
 <script>
@@ -125,12 +181,15 @@ import SelectionList from '../components/Selection-list.vue'
 export default {
 	name: 'ProjectSplit',
 	components: {
-		SelectionList
+		SelectionList,
 	},
 	data: () => {
 		return {
 			selectedStories: [],
-			newProjects: []
+			newProjects: [],
+			isModalVisible: false,
+			modalHeader: 'Create Project',
+			projectName: ''
 		}
 	},
 	computed: {
@@ -160,6 +219,21 @@ export default {
 		},
 		updateStoryList (stories) {
 			this.selectedStories = stories
+		},
+		showModal () {
+			this.isModalVisible = true
+		},
+		closeModal () {
+			this.isModalVisible = false
+		},
+		saveNewProject () {
+			this.newProjects.push({
+				name: this.projectName,
+				stories: this.selectedStories
+			})
+			this.selectedStories = []
+			this.$refs.storiesList.clearSelection()
+			this.closeModal()
 		}
 	},
 }

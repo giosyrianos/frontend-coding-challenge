@@ -60,6 +60,10 @@ export default {
 				console.log('added', this.selectedItems)
 			}
 			this.$emit('list-updated', this.selectedItems)
+		},
+		clearSelection () {
+			this.selectedItems = []
+			this.$emit('list-updated', this.selectedItems)
 		}
 	}
 }
@@ -73,7 +77,7 @@ export default {
 }
 .selectable:hover {
 	cursor: pointer;
-	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+	box-shadow: inset 0 -5px 3px -3px #155724,inset 0 5px 3px -3px #155724;
 }
 
 </style>
