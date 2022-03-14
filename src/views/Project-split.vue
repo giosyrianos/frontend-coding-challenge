@@ -84,6 +84,13 @@
 							nodes.length
 						}}</span>
 					</a>
+					<button
+						v-if="selectedStories.length > 0"
+						class="btn btn-outline-dark btn-sm ml-auto"
+						@click="clearStories()"
+					>
+						Clear
+					</button>
 				</div>
 			</nav>
 			<div
@@ -124,8 +131,22 @@
 			</div>
 		</div>
 	</div>
-	<div class="new-projects-container">
-		{{ newProjects }}
+	<div
+		v-if="newProjects.length > 0"
+		class="new-projects-container d-flex p-4 shadow-lg w-100"
+	>
+		<div class="btn-container">
+			<button class="btn btn-success my-auto">
+				Split Project
+			</button>
+		</div>
+		<NewProjectCard
+			v-for="project in newProjects"
+			:key="project.name"
+			:project-name="project.name"
+			:stories="project.stories"
+			@delete="removeProject(project)"
+		/>
 	</div>
 	<ModalDialogue
 		v-show="isModalVisible"
@@ -177,11 +198,13 @@
 
 <script>
 import SelectionList from '../components/Selection-list.vue'
+import NewProjectCard from '../components/New-project-card.vue'
 
 export default {
 	name: 'ProjectSplit',
 	components: {
 		SelectionList,
+		NewProjectCard,
 	},
 	data: () => {
 		return {
@@ -231,9 +254,19 @@ export default {
 				name: this.projectName,
 				stories: this.selectedStories
 			})
+			this.projectName = ''
+			this.clearStories()
+			this.closeModal()
+		},
+		removeProject (project) {
+			const index = this.newProjects.findIndex(proj => {
+				return proj.name === project.name
+			})
+			this.newProjects.splice(index, 1)
+		},
+		clearStories () {
 			this.selectedStories = []
 			this.$refs.storiesList.clearSelection()
-			this.closeModal()
 		}
 	},
 }
