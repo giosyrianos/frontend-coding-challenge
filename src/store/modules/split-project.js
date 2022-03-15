@@ -18,7 +18,7 @@ export default {
 			const projectId = router.currentRoute.value.params.projectId
 			ProjectsDataService.creatNewProjects(projectId, newProjects)
 				.then((res) => {
-					console.log(res)
+					router.push('/')
 				})
 				.catch(error => console.log(error))
 		},

@@ -136,7 +136,10 @@
 		class="new-projects-container d-flex p-4 shadow-lg w-100"
 	>
 		<div class="btn-container">
-			<button @click="submitNewProjects()" class="btn btn-success my-auto">
+			<button
+				class="btn btn-success my-auto"
+				@click="submitNewProjects()"
+			>
 				Split Project
 			</button>
 		</div>
